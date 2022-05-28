@@ -1,0 +1,13 @@
+version: "3"
+services:
+  web:
+    build:
+      context: ./site
+      dockerfile: Dockerfile
+    image: goropikari/dmoj-site:dev
+
+  judger:
+    build:
+      context: ./judger
+      dockerfile: Dockerfile
+    image: goropikari/dmoj-judger:dev

@@ -1,0 +1,44 @@
+version: "3"
+services:
+  redis:
+    image: redis:7.0
+    restart: always
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
+
+  web:
+    image: goropikari/dmoj-site:debug
+    container_name: web
+    # restart: always
+    stdin_open: true
+    tty: true
+    environment:
+      - DB_DATABASE=dmoj
+      - DB_HOST=db
+      - DB_USER=dmoj
+      - DB_PASSWORD=password
+      - TZ=Asia/Tokyo
+      - DEBUG=true
+    ports:
+      # - 8080:80
+      - 8000:8000
+    depends_on:
+      - db
+      - redis
+
+  judger:
+    image: goropikari/dmoj-judger:debug
+    restart: always
+    # volumes:
+    #   - ./problems:/problems
+    tty: true
+    depends_on:
+      - web
