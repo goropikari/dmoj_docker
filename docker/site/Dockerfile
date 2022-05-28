@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
@@ -12,8 +12,7 @@ RUN apt-get install -y sudo && \
 
 USER ubuntu
 
-RUN curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - && \
-    sudo apt-get install -y nodejs && \
+RUN sudo apt-get install -y nodejs npm && \
     sudo npm install -g sass postcss-cli postcss autoprefixer
 
 RUN sudo apt-get install -y libmysqlclient-dev mysql-client
