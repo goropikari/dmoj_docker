@@ -2,12 +2,12 @@ version: "3"
 services:
   web:
     build:
-      context: ./site
+      context: ./docker/site
       dockerfile: Dockerfile
     image: goropikari/dmoj-site:dev
 
   judger:
     build:
-      context: ./judger
+      context: ./docker/judger
       dockerfile: Dockerfile
     image: goropikari/dmoj-judger:dev

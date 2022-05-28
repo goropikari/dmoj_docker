@@ -34,4 +34,6 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN useradd dmoj
 USER dmoj
-CMD sleep 30 && dmoj -c /problems/judge.yml web
+ARG SITE_HOST web
+
+CMD sleep 30 && dmoj -c /problems/judge.yml ${SITE_HOST}

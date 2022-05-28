@@ -15,7 +15,7 @@ services:
       - 3306:3306
 
   web:
-    image: goropikari/dmoj-site:debug
+    image: goropikari/dmoj-site
     container_name: web
     stdin_open: true
     tty: true
@@ -35,10 +35,12 @@ services:
       - redis
 
   judger:
-    image: goropikari/dmoj-judger:debug
+    image: goropikari/dmoj-judger
     restart: always
     # volumes:
     #   - ./problems:/problems
     tty: true
+    environment:
+      - SITE_HOST=web
     depends_on:
       - web

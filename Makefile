@@ -6,13 +6,11 @@ dev-run:
 
 dev-build:
 	docker compose down && yes | docker system prune && yes | docker volume prune
-	docker compose -f compose.yml -f compose-dev.yml build --no-cache
+	docker compose -f compose.yml -f compose-dev.yml build
 
 image-build:
-	docker build -t goropikari/dmoj-site:debug -f site/Dockerfile --no-cache site
-	docker build -t goropikari/dmoj-judger:debug -f judger/Dockerfile --no-cache judger
+	docker build -t goropikari/dmoj-site:latest -f docker/site/Dockerfile --no-cache site
+	docker build -t goropikari/dmoj-judger:latest -f docker/judger/Dockerfile --no-cache judger
 
 push-image:
-	docker login
-	docker push goropikari/dmoj-site:debug
-	docker push goropikari/dmoj-judger:debug
+	./scripts/push_image
