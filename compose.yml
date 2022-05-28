@@ -17,7 +17,6 @@ services:
   web:
     image: goropikari/dmoj-site:debug
     container_name: web
-    # restart: always
     stdin_open: true
     tty: true
     environment:
@@ -26,7 +25,8 @@ services:
       - DB_USER=dmoj
       - DB_PASSWORD=password
       - TZ=Asia/Tokyo
-      - DEBUG=true
+      - DEBUG=true # true/false
+      - TWO_STEP_REGISTRATION=false # true/false
     ports:
       # - 8080:80
       - 8000:8000

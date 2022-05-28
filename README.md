@@ -5,6 +5,7 @@
 ```bash
 # start web server and judge server
 git clone https://github.com/goropikari/dmoj_docker.git
+cd dmoj_docker
 docker compose up -d
 
 # stop system
@@ -17,20 +18,27 @@ Access http://localhost:8000/admin .
 
 
 ## For me
-
+### Push images
 Build site and judger docker images.
 
+push image to dockerhub
 ```
 docker compose down && yes | docker system prune && yes | docker volume prune
 
-docker build -t goropikari/dmoj-site:debug -f site/Dockerfile site
-docker build -t goropikari/dmoj-judger:debug -f judger/Dockerfile judger
+docker build -t goropikari/dmoj-site:debug -f site/Dockerfile --no-cache site
+docker build -t goropikari/dmoj-judger:debug -f judger/Dockerfile --no-cache judger
 
 docker login
 docker push goropikari/dmoj-site:debug
 docker push goropikari/dmoj-judger:debug
 ```
 
+### Development
+
+```
+make dev-build
+make dev-run
+```
 
 ```cpp
 #include<iostream>

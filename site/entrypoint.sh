@@ -11,7 +11,7 @@ sleep 15
 
 python3 manage.py migrate
 python3 manage.py loaddata navbar
-python3 manage.py loaddata language_small
+python3 manage.py loaddata languages
 python3 manage.py loaddata demo
 
 python3 manage.py runbridged &
