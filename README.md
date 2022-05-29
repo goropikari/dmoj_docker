@@ -1,5 +1,9 @@
 # DMOJ Docker
 
+Related
+- [site](https://github.com/goropikari/online-judge)
+- [judge server](https://github.com/goropikari/judge-server)
+
 ## Setup
 
 ```bash
@@ -12,7 +16,7 @@ docker compose up -d
 docker compose down
 ```
 
-Access http://localhost:8000/admin .
+Access http://localhost:8080/admin .
 - user name: admin
 - password: admin
 
@@ -23,14 +27,10 @@ Build site and judger docker images.
 
 push image to dockerhub
 ```
-docker compose down && yes | docker system prune && yes | docker volume prune
+make push-image
 
-docker build -t goropikari/dmoj-site:debug -f site/Dockerfile --no-cache site
-docker build -t goropikari/dmoj-judger:debug -f judger/Dockerfile --no-cache judger
-
-docker login
-docker push goropikari/dmoj-site:debug
-docker push goropikari/dmoj-judger:debug
+# push only site image
+make push-site-image
 ```
 
 ### Development
