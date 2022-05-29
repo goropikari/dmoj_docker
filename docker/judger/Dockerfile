@@ -1,14 +1,7 @@
-# FROM ubuntu:20.04
 FROM debian:stable-slim
 
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y libseccomp-dev git python3-pip
-
-# RUN pip3 install dmoj
-RUN git clone --depth 1 --recursive https://github.com/goropikari/judge-server.git && \
-    cd judge-server && \
-    pip3 install -r requirements.txt && \
-    python3 setup.py develop
 
 # Install runtime
 RUN apt-get install -y \
@@ -23,6 +16,12 @@ RUN apt-get install -y \
     racket \
     ruby
 
+# RUN pip3 install dmoj
+RUN git clone --depth 1 --recursive https://github.com/goropikari/judge-server.git && \
+    cd judge-server && \
+    pip3 install -r requirements.txt && \
+    python3 setup.py develop
+
 RUN mkdir -p /problems
 COPY ./problems/judge.yml /problems
 
@@ -36,4 +35,5 @@ RUN useradd dmoj
 USER dmoj
 ARG SITE_HOST web
 
+# wait until site server is active.
 CMD sleep 30 && dmoj -c /problems/judge.yml ${SITE_HOST}

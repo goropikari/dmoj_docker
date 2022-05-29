@@ -25,10 +25,10 @@ services:
       - DB_USER=dmoj
       - DB_PASSWORD=password
       - TZ=Asia/Tokyo
-      - DEBUG=true # true/false
+      - DEBUG=false # true/false
       - TWO_STEP_REGISTRATION=false # true/false
     ports:
-      # - 8080:80
+      - 8080:80
       - 8000:8000
     depends_on:
       - db

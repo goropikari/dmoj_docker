@@ -14,5 +14,17 @@ python3 manage.py loaddata navbar
 python3 manage.py loaddata languages
 python3 manage.py loaddata demo
 
+# for communication with judge server
 python3 manage.py runbridged &
-python3 manage.py runserver 0.0.0.0:8000
+
+# Even if there is no celery setting, judge works correctlyc.
+# So I don't know whether celery is needed or not.
+export PATH=$PATH:$HOME/.local/bin
+celery -A dmoj_celery worker &
+
+uwsgi --ini conf/uwsgi.ini &
+
+sudo service nginx start
+
+# python3 manage.py runserver 0.0.0.0:8000
+sleep infinity
