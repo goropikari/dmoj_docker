@@ -29,4 +29,9 @@ image-build-no-cache:
 	docker build -t goropikari/dmoj-judger:latest -f docker/judger/Dockerfile --no-cache docker/judger
 
 push-image: image-build-no-cache
-	./scripts/push_image
+	./scripts/push_judger_image
+	./scripts/push_site_image
+
+push-site-image:
+	docker build -t goropikari/dmoj-site:latest -f docker/site/Dockerfile --no-cache docker/site
+	./scripts/push_site_image

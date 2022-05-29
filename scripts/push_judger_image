@@ -1,0 +1,9 @@
+#!/bin/bash
+
+docker login
+docker push goropikari/dmoj-judger:latest
+
+TAG=$(date "+%Y%m%d-%H%M%S")
+docker tag goropikari/dmoj-judger:latest goropikari/dmoj-judger:${TAG}
+
+docker push goropikari/dmoj-judger:${TAG}
