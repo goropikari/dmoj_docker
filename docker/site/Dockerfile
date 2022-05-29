@@ -28,13 +28,16 @@ WORKDIR /home/ubuntu/site
 RUN pip3 install -r requirements.txt && \
     pip3 install mysqlclient django-redis
 
+COPY conf/config.js websocket/config.js
+RUN npm install qu ws simplesets && \
+    pip3 install websocket-client
+
 RUN sudo mkdir -p /var/www/static && \
     sudo chown -R ubuntu:www-data /var/www/static && \
     ./make_style.sh && \
     python3 manage.py collectstatic && \
     python3 manage.py compilemessages && \
     python3 manage.py compilejsi18n
-
 
 RUN pip3 install wheel && \
     pip3 install uwsgi && \

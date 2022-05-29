@@ -24,7 +24,9 @@ celery -A dmoj_celery worker &
 
 uwsgi --ini conf/uwsgi.ini &
 
+/usr/bin/node websocket/daemon.js &
+
 sudo service nginx start
 
-# python3 manage.py runserver 0.0.0.0:8000
+# DEBUG=true ython3 manage.py runserver 0.0.0.0:8000
 sleep infinity
