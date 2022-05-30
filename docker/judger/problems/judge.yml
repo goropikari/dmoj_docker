@@ -14,28 +14,31 @@ runtime:
   awk: /usr/bin/awk
   bash: /bin/bash
   cargo: /home/judge/.cargo/bin/cargo
-  cat: /usr/bin/cat
+  cat: /usr/bin/cat # text
   ccl: /opt/ccl/lx86cl
-  chicken-csc: /usr/bin/csc
+  chicken-csc: /usr/bin/chicken-csc
   clang: /usr/bin/clang
   clang++: /usr/bin/clang++
-  cobc: /usr/bin/cobc
+  cobc: /usr/bin/cobc # COBOL
   dart: /opt/dart-sdk/bin/dart
-  dmd: /usr/bin/dmd
-  erl: /usr/bin/erl
+  dmd: /usr/bin/dmd # D
+  erl: /usr/bin/erl # Erlang
   erlc: /usr/bin/erlc
-  fpc: /usr/bin/fpc
+  fpc: /usr/bin/fpc # pascal
   fsharpc: /usr/bin/fsharpc
   g++: /usr/bin/g++
   g++20: /usr/bin/g++
   gcc: /usr/bin/gcc
+  gcc11: /usr/bin/gcc
   gforth: /usr/bin/gforth
   gfortran: /usr/bin/gfortran
-  ghc: /usr/bin/ghc
-  gnatmake: /usr/bin/gnatmake
+  ghc: /usr/bin/ghc # haskell
+  gnatmake: /usr/bin/gnatmake # Ada
   gnustep-config: /usr/bin/gnustep-config
   go: /usr/bin/go
   gobjc: /usr/bin/gcc
+  groovy_vm: /opt/groovy/bin/groovy
+  groovyc: /opt/groovy/bin/groovyc
   ick: /usr/bin/ick
   java: /usr/bin/java
   java17: /usr/bin/java
@@ -51,7 +54,7 @@ runtime:
   mono: /usr/bin/mono
   nasm: /usr/bin/nasm
   node: /usr/bin/node
-  ocaml: /usr/bin/ocamlopt
+  ocamlfind: /home/judge/.opam/default/bin/ocamlfind
   perl: /usr/bin/perl
   php: /usr/bin/php
   phpconfdir: /etc/php5/
@@ -61,20 +64,20 @@ runtime:
   python3: /usr/bin/python3
   racket-lib: /opt/racket/lib
   racket: /usr/bin/racket
-  raco: /usr/bin/raco
+  raco: /usr/bin/raco # racket
   ruby: /usr/bin/ruby
   ruby3.0: /usr/bin/ruby
-  sbcl: /usr/bin/sbcl
+  sbcl: /usr/bin/sbcl # Steel Bank Common Lisp
   scala_vm: /usr/bin/scala
   scalac: /usr/bin/scalac
   sed: /bin/sed
   swiftc: /opt/swift/usr/bin/swiftc
-  swipl: /usr/bin/swipl
-  tclsh: /usr/bin/tclsh
+  swipl: /usr/bin/swipl # prolog
+  tclsh: /usr/bin/tclsh # Tcl
   tprolog: /opt/tprolog/tprolog
   tprologc: /opt/tprolog/tprologc
   turing_dir: /opt/tprolog/tprolog
   zig: /opt/zig/zig
   # Custom V8 build to facilitate online judging: https://github.com/DMOJ/v8dmoj
-  v8dmoj: /home/judge/judge/executors/v8dmoj
+  v8dmoj: /usr/bin/v8dmoj
 
