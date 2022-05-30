@@ -11,67 +11,70 @@ problem_storage_root:
 # If you're unsure of what values a language needs, your best bet is to consult the source of the executor:
 # <https://github.com/DMOJ/judge/tree/master/dmoj/executors>
 runtime:
+  awk: /usr/bin/awk
+  bash: /bin/bash
+  cargo: /home/judge/.cargo/bin/cargo
+  cat: /usr/bin/cat
+  ccl: /opt/ccl/lx86cl
+  chicken-csc: /usr/bin/csc
   clang: /usr/bin/clang
   clang++: /usr/bin/clang++
+  cobc: /usr/bin/cobc
+  dart: /opt/dart-sdk/bin/dart
+  dmd: /usr/bin/dmd
+  erl: /usr/bin/erl
+  erlc: /usr/bin/erlc
+  fpc: /usr/bin/fpc
+  fsharpc: /usr/bin/fsharpc
   g++: /usr/bin/g++
-  g++11: /usr/bin/g++
-  g++14: /usr/bin/g++
-  g++17: /usr/bin/g++
   g++20: /usr/bin/g++
   gcc: /usr/bin/gcc
+  gforth: /usr/bin/gforth
   gfortran: /usr/bin/gfortran
+  ghc: /usr/bin/ghc
+  gnatmake: /usr/bin/gnatmake
+  gnustep-config: /usr/bin/gnustep-config
   go: /usr/bin/go
+  gobjc: /usr/bin/gcc
+  ick: /usr/bin/ick
   java: /usr/bin/java
   java17: /usr/bin/java
   javac: /usr/bin/javac
   javac17: /usr/bin/javac
+  kotlin_vm: /opt/kotlin/bin/kotlin
+  kotlinc: /opt/kotlin/bin/kotlinc
+  ld: /usr/bin/ld
+  lean: /opt/lean/bin/lean
+  lua: /usr/bin/lua
+  mono-csc: /usr/bin/mono-csc
+  mono-vbnc: /usr/bin/vbnc
+  mono: /usr/bin/mono
+  nasm: /usr/bin/nasm
   node: /usr/bin/node
+  ocaml: /usr/bin/ocamlopt
+  perl: /usr/bin/perl
+  php: /usr/bin/php
+  phpconfdir: /etc/php5/
+  pike: /usr/bin/pike
   pypy3: /opt/pypy3/bin/pypy
+  pypy3dir: /opt/pypy3/
   python3: /usr/bin/python3
-  rkt: /usr/bin/racket
+  racket-lib: /opt/racket/lib
+  racket: /usr/bin/racket
+  raco: /usr/bin/raco
   ruby: /usr/bin/ruby
+  ruby3.0: /usr/bin/ruby
+  sbcl: /usr/bin/sbcl
+  scala_vm: /usr/bin/scala
+  scalac: /usr/bin/scalac
+  sed: /bin/sed
+  swiftc: /opt/swift/usr/bin/swiftc
+  swipl: /usr/bin/swipl
+  tclsh: /usr/bin/tclsh
+  tprolog: /opt/tprolog/tprolog
+  tprologc: /opt/tprolog/tprologc
+  turing_dir: /opt/tprolog/tprolog
+  zig: /opt/zig/zig
+  # Custom V8 build to facilitate online judging: https://github.com/DMOJ/v8dmoj
+  v8dmoj: /home/judge/judge/executors/v8dmoj
 
-#   ccl: /opt/ccl/lx86cl
-#   sed: /bin/sed
-#   awk: /usr/bin/awk
-#   gnatmake: /usr/bin/gnatmake
-#   chicken-csc: /usr/bin/csc
-#   dart: /opt/dart-sdk/bin/dart
-#   tclsh: /usr/bin/tclsh
-#   cobc: /usr/bin/cobc
-#   erl: /usr/bin/erl
-#   erlc: /usr/bin/erlc
-#   tprolog: /opt/turing/tprolog/tprolog
-#   tprologc: /opt/turing/tprolog/tprologc
-#   turing_dir: /opt/turing/tprolog
-#   lua: /usr/bin/lua
-#   ocaml: /usr/bin/ocamlopt
-#   pypy: /opt/pypy/bin/pypy
-#   pypydir: /opt/pypy/
-#   pypy3dir: /opt/pypy3/
-#   ghc: /usr/bin/ghc
-#   fsharpc: /usr/bin/fsharpc
-#   mono-csc: /usr/bin/mono-csc
-#   mono-vbnc: /usr/bin/vbnc
-#   mono: /usr/bin/mono
-#   dmd: /usr/bin/dmd
-#   fpc: /opt/fpc-2.6.4/bin/fpc
-#   nasm: /usr/bin/nasm
-#   ld: /usr/bin/ld
-#   python: /opt/python27/bin/python2.7
-#   python2dir: /opt/python27/
-#   python3dir: /opt/python34/
-#   java8: /usr/lib/jvm/jdk-8-oracle-i586/bin/java
-#   javac8: /usr/lib/jvm/jdk-8-oracle-i586/bin/javac
-# # Custom V8 build to facilitate online judging: https://github.com/DMOJ/v8dmoj
-#   v8dmoj: /home/judge/judge/executors/v8dmoj
-#   php: /usr/bin/php
-#   phpconfdir: /etc/php5/
-#   perl: /usr/bin/perl
-#   ruby19: /usr/bin/ruby1.9.1
-#   ruby21: /usr/bin/ruby
-#   racket: /opt/racket/bin/racket
-#   raco: /opt/racket/bin/raco
-#   racket-lib: /opt/racket/lib
-#   gnustep-config: /usr/bin/gnustep-config
-#   gobjc: /usr/bin/gcc

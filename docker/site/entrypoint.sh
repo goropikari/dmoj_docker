@@ -13,7 +13,8 @@ sleep 15
 
 python3 manage.py migrate
 python3 manage.py loaddata navbar
-python3 manage.py loaddata languages
+# python3 manage.py loaddata languages
+python3 manage.py loaddata language_all
 python3 manage.py loaddata demo
 
 # for communication with judge server

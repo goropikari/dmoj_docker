@@ -18,6 +18,7 @@ COPY conf/bridged.conf /etc/supervisor/conf.d/bridged.conf
 COPY conf/celery.conf /etc/supervisor/conf.d/celery.conf
 COPY conf/wsevent.conf /etc/supervisor/conf.d/wsevent.conf
 
+
 USER ubuntu
 
 RUN sudo apt-get install -y nodejs npm && \
@@ -26,7 +27,9 @@ RUN sudo apt-get install -y nodejs npm && \
 RUN sudo apt-get install -y libmysqlclient-dev mysql-client
 
 WORKDIR /home/ubuntu
-RUN git clone -b setup --depth 1 --recursive https://github.com/goropikari/online-judge site
+# RUN git clone -b setup --depth 1 --recursive https://github.com/goropikari/online-judge site
+COPY ./online-judge site
+RUN sudo chown -R ubuntu:ubuntu site
 
 RUN cd /home/ubuntu && \
     python3 -m venv site

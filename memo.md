@@ -25,6 +25,8 @@ judger container の `/problems` に問題のテストケース、`init.yml` を
 - site, judger 両方のイメージを rebuild
 
 
+`pip install dmoj` で入れると executor が古いので git clone して最新のやつを持った来たほうがよさそう。
+
 # supervisor
 
 supervisor で起動するプロセスがどうにも docker compose で渡す環境変数を参照できない気がする。
