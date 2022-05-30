@@ -19,6 +19,10 @@ RUN cd judge-server && \
 
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
+RUN cd /usr/include && \
+    git clone https://github.com/atcoder/ac-library && \
+    mv ac-library/atcoder .
+
 USER judge
 ARG SITE_HOST web
 
