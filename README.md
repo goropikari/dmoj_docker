@@ -16,7 +16,7 @@ docker compose up -d
 docker compose down
 ```
 
-Access http://localhost:8080/admin .
+Access http://127.0.0.1:8080/admin
 - user name: admin
 - password: admin
 

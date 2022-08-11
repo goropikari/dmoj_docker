@@ -1,7 +1,9 @@
 #!/bin/bash
 
-# adhoc db wait
-sleep 15
+until mysqladmin ping -h $DB_HOST -u$DB_USER -p$DB_PASSWORD --silent; do
+  echo 'waiting for mysqld to be connectable...'
+  sleep 2
+done
 
 # mysql -h db -uroot -proot
 # DROP DATABASE IF EXISTS dmoj;
@@ -9,13 +11,24 @@ sleep 15
 # GRANT ALL PRIVILEGES ON dmoj.* to 'dmoj'@'%' IDENTIFIED BY 'password';
 # exit
 
-. ./bin/activate
 
-python3 manage.py migrate
-python3 manage.py loaddata navbar
-# python3 manage.py loaddata languages
-python3 manage.py loaddata language_all
-python3 manage.py loaddata demo
+. bin/activate
+
+if [ ! -e /var/www/static ]; then
+    sudo mkdir -p /var/www/static
+    sudo chown -R ubuntu:www-data /var/www/static
+    ./make_style.sh
+    python manage.py collectstatic
+    python3 manage.py compilemessages --locale en
+    python3 manage.py compilemessages --locale ja
+    python3 manage.py compilejsi18n --locale en
+    python3 manage.py compilejsi18n --locale ja
+
+    python3 manage.py migrate
+    python3 manage.py loaddata navbar
+    python3 manage.py loaddata language_all
+    python3 manage.py loaddata demo
+fi
 
 # for communication with judge server
 # python3 manage.py runbridged &
@@ -29,18 +42,13 @@ python3 manage.py loaddata demo
 
 # /usr/bin/node websocket/daemon.js &
 
-for conf in bridged.conf site.conf celery.conf
+for conf in bridged.conf site.conf celery.conf wsevent.conf
 do
-    sudo sed -i -e "s/__DB_DATABASE__/${DB_DATABASE}/" /etc/supervisor/conf.d/${conf}
-    sudo sed -i -e "s/__DB_HOST__/${DB_HOST}/" /etc/supervisor/conf.d/${conf}
-    sudo sed -i -e "s/__DB_USER__/${DB_USER}/" /etc/supervisor/conf.d/${conf}
-    sudo sed -i -e "s/__DB_PASSWORD__/${DB_PASSWORD}/" /etc/supervisor/conf.d/${conf}
-    sudo sed -i -e "s/__DEBUG__/${DEBUG}/" /etc/supervisor/conf.d/${conf}
-    sudo sed -i -e "s/__TWO_STEP_REGISTRATION__/${TWO_STEP_REGISTRATION}/" /etc/supervisor/conf.d/${conf}
+    sudo -E envsubst < /etc/supervisor/conf.d/template/${conf} | sudo tee /etc/supervisor/conf.d/${conf}
 done
 
 sudo service nginx start
-sudo supervisord
+sudo supervisord -c /etc/supervisor/supervisord.conf
 
-# DEBUG=true ython3 manage.py runserver 0.0.0.0:8000
+# DEBUG=true python3 manage.py runserver 0.0.0.0:8000
 sleep infinity

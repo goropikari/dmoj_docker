@@ -26,7 +26,7 @@ services:
       - DB_PASSWORD=password
       - TZ=Asia/Tokyo
       - DEBUG=false # true/false
-      - TWO_STEP_REGISTRATION=false # true/false
+      - TWO_STEP_REGISTRATION=false # true/false false の場合はメール認証無し
     ports:
       - 8080:80
       - 8000:8000
@@ -40,6 +40,8 @@ services:
     # volumes:
     #   - ./problems:/problems
     tty: true
+    cap_add:
+      - SYS_PTRACE
     environment:
       - SITE_HOST=web
     depends_on:

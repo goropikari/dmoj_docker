@@ -5,7 +5,7 @@ dev-run:
 	docker compose -f compose.yml -f compose-dev.yml up
 
 dev-build:
-	docker compose down && yes | docker system prune && yes | docker volume prune
+#	docker compose down && yes | docker system prune && yes | docker volume prune
 	docker compose -f compose.yml -f compose-dev.yml build
 
 dev-site-build:
