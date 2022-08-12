@@ -30,6 +30,8 @@ services:
     ports:
       - 8080:80
       - 8000:8000
+    volumes:
+      - ./problems:/home/ubuntu/problems
     depends_on:
       - db
       - redis
@@ -37,8 +39,8 @@ services:
   judger:
     image: goropikari/dmoj-judger
     restart: always
-    # volumes:
-    #   - ./problems:/problems
+    volumes:
+      - ./problems:/home/judge/problems
     tty: true
     cap_add:
       - SYS_PTRACE
