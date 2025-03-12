@@ -1,0 +1,103 @@
+services:
+  redis:
+    image: public.ecr.aws/docker/library/redis:7.4.2
+    restart: always
+
+  db:
+    image: public.ecr.aws/docker/library/mysql:8.0.41-debian
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+      - ./db/data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "db", "-u", "root", "-p$MYSQL_ROOT_PASSWORD"]
+      interval: 30s
+      timeout: 5s
+      retries: 6
+      start_period: 30s
+
+  app:
+    build:
+      context: ..
+      dockerfile: docker/site/Dockerfile-site
+    environment:
+      - HOST=*
+      - DOCKER_COMPOSE_ENV=0
+      - DB_NAME=dmoj
+      - DB_HOST=db
+      - DB_USER=dmoj
+      - DB_PASSWORD=password
+      - TZ=Asia/Tokyo
+      - REDIS_HOST=redis
+      - DJANGO_SETTINGS_MODULE=dmoj.settings
+    ports:
+      - 8000:8000
+    volumes:
+      - ../problems:/problems
+      - static:/tmp/static
+    # command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn dmoj.wsgi:application --bind 0.0.0.0:8000
+    # command: sleep infinity
+    depends_on:
+      db:
+        condition: service_healthy
+  
+  nginx:
+    image: public.ecr.aws/nginx/nginx:1.27-bookworm
+    volumes:
+      - static:/var/www/static
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+  
+  judger-py:
+    build:
+      context: ..
+      dockerfile: docker/runtime/Dockerfile-python
+    volumes:
+      - ../problems:/home/vscode/problems
+    environment:
+      - PROBLEM_ROOT=/home/vscode/problems
+    cap_add:
+      - SYS_PTRACE
+    depends_on:
+      - app
+    working_dir: /home/vscode
+    command: /home/vscode/.local/bin/dmoj -c /home/vscode/problems/judge-py.yml app
+  
+  judger-cpp:
+    build:
+      context: ..
+      dockerfile: docker/runtime/Dockerfile-python
+    volumes:
+      - ../problems:/home/vscode/problems
+    environment:
+      - PROBLEM_ROOT=/home/vscode/problems
+    cap_add:
+      - SYS_PTRACE
+    depends_on:
+      - app
+    working_dir: /home/vscode
+    command: /home/vscode/.local/bin/dmoj -c /home/vscode/problems/judge-cpp.yml app
+  
+  judger-ruby:
+    build:
+      context: ..
+      dockerfile: docker/runtime/Dockerfile-ruby
+    volumes:
+      - ../problems:/home/vscode/problems
+    environment:
+      - PROBLEM_ROOT=/home/vscode/problems
+    cap_add:
+      - SYS_PTRACE
+    depends_on:
+      - app
+    working_dir: /home/vscode
+    command: /home/vscode/.local/bin/dmoj -c /home/vscode/problems/judge-ruby.yml app
+
+volumes:
+  static:

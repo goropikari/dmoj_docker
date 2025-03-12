@@ -1,0 +1,14 @@
+FROM mcr.microsoft.com/devcontainers/python:3.11-bookworm
+
+RUN apt-get update && apt-get install -y \
+    libseccomp-dev \
+    build-essential \
+    pypy3 \
+    git
+
+RUN mkdir -p /opt && \
+    git clone -b v1.5.1 --depth 1 https://github.com/atcoder/ac-library.git /opt/ac-library
+
+ENV CPLUS_INCLUDE_PATH /opt/ac-library
+USER vscode
+RUN pip install dmoj

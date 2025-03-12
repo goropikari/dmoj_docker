@@ -1,0 +1,10 @@
+id: CppContainer
+key: "-t_qBN}_zr@WF_O(j>A]9:JR,-]@FMPN38(9Y:CDD]`ZT.|dYdH03q#;cN8?5s(gvu0LeSBMy3cc;06)pF)<nX]C=.Us^{#7w!9:"
+problem_storage_root:
+  - /home/vscode/problems
+runtime:
+  g++: /usr/bin/g++
+  g++20: /usr/bin/g++
+  gcc: /usr/bin/gcc
+  gcc11: /usr/bin/gcc
+

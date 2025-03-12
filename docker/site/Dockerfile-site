@@ -1,0 +1,32 @@
+FROM public.ecr.aws/docker/library/python:3.11.11-bookworm
+
+RUN apt-get update && apt-get install -y \
+    git \
+    libseccomp-dev \
+    build-essential \
+    libxml2-dev \
+    libxslt1-dev \
+    zlib1g-dev \
+    gettext \
+    curl \
+    default-libmysqlclient-dev \
+    nodejs \
+    npm \
+    ripgrep
+
+RUN npm install -g sass postcss-cli postcss autoprefixer
+RUN git clone -b v4.0.0 --depth 1 --recursive https://github.com/DMOJ/online-judge.git /site
+
+WORKDIR /site
+RUN npm install qu ws simplesets
+RUN pip install -r requirements.txt && \
+    pip install mysqlclient setuptools lxml_html_clean redis django-redis websocket-client gunicorn
+COPY ./config/local_settings.py /site/dmoj/
+COPY ./docker/site/register.py /site/judge/views/
+COPY ./config/language.json /site/judge/fixtures/
+COPY ./config/judgers.json /site/judge/fixtures/
+COPY ./config/config.js /site/websocket/
+COPY ./docker/site/entrypoint.sh /site/
+
+ENTRYPOINT [ "/site/entrypoint.sh" ]
+# CMD [ "python", "manage.py", "runserver", "0.0.0.0:8000" ]

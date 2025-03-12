@@ -1,0 +1,16 @@
+# This is the same ID you specified in the judge admin panel
+id: PythonContainer
+# The key this judge will use to authenticate with the site server, generated from the admin panel
+key: "-t_qBN}_zr@WF_O(j>A]9:JR,-]@FMPN38(9Y:CDD]`ZT.|dYdH03q#;cN8?5s(gvu0LeSBMy3cc;06)pF)<nX]C=.Us^{#7w!9:"
+# Where to look for problems on the local filesystem.
+# This directory /not/ scanned recursively, and any directory containing an init.yml file is assumed to
+# be a problem directory.
+problem_storage_root:
+  - /home/vscode/problems
+# All configuration for language executors
+# If you're unsure of what values a language needs, your best bet is to consult the source of the executor:
+# <https://github.com/DMOJ/judge/tree/master/dmoj/executors>
+runtime:
+  python3: /usr/bin/python3
+  pypy3: /usr/bin/pypy3
+
