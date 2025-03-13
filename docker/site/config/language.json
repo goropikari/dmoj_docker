@@ -78,5 +78,21 @@
             "description": "",
             "extension": "py"
         }
+    },
+    {
+        "model": "judge.language",
+        "pk": 6,
+        "fields": {
+            "key": "GO",
+            "name": "Go",
+            "short_name": "GO",
+            "common_name": "Go",
+            "ace": "golang",
+            "pygments": "go",
+            "template": "",
+            "info": "",
+            "description": "",
+            "extension": "go"
+        }
     }
 ]

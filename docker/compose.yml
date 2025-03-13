@@ -79,5 +79,12 @@ services:
       dockerfile: docker/runtime/Dockerfile-ruby
     command: /home/vscode/.local/bin/dmoj -c /home/vscode/problems/judge-ruby.yml app
 
+  judger-go:
+    <<: *judger-base
+    build:
+      context: ..
+      dockerfile: docker/runtime/Dockerfile-go
+    command: /home/vscode/.local/bin/dmoj -c /home/vscode/problems/judge-go.yml app
+
 volumes:
   static-asset:
