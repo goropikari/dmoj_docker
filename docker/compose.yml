@@ -24,7 +24,7 @@ services:
       dockerfile: docker/site/Dockerfile-site
     environment:
       - HOST=*
-      - DOCKER_COMPOSE_ENV=0
+      - DEBUG=0
       - DB_NAME=dmoj
       - DB_HOST=db
       - DB_USER=dmoj
@@ -32,14 +32,10 @@ services:
       - TZ=Asia/Tokyo
       - REDIS_HOST=redis
       - DJANGO_SETTINGS_MODULE=dmoj.settings
-    ports:
-      - 8000:8000
     volumes:
       - ../problems:/problems
-      - static:/tmp/static
-    # command: python manage.py runserver 0.0.0.0:8000
+      - static-asset:/tmp/static
     command: gunicorn dmoj.wsgi:application --bind 0.0.0.0:8000
-    # command: sleep infinity
     depends_on:
       db:
         condition: service_healthy
@@ -47,14 +43,14 @@ services:
   nginx:
     image: public.ecr.aws/nginx/nginx:1.27-bookworm
     volumes:
-      - static:/var/www/static
+      - static-asset:/var/www/static
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
     ports:
       - "80:80"
     depends_on:
       - app
   
-  judger-py:
+  judger-py: &judger-base
     build:
       context: ..
       dockerfile: docker/runtime/Dockerfile-python
@@ -70,34 +66,18 @@ services:
     command: /home/vscode/.local/bin/dmoj -c /home/vscode/problems/judge-py.yml app
   
   judger-cpp:
+    <<: *judger-base
     build:
       context: ..
       dockerfile: docker/runtime/Dockerfile-python
-    volumes:
-      - ../problems:/home/vscode/problems
-    environment:
-      - PROBLEM_ROOT=/home/vscode/problems
-    cap_add:
-      - SYS_PTRACE
-    depends_on:
-      - app
-    working_dir: /home/vscode
     command: /home/vscode/.local/bin/dmoj -c /home/vscode/problems/judge-cpp.yml app
   
   judger-ruby:
+    <<: *judger-base
     build:
       context: ..
       dockerfile: docker/runtime/Dockerfile-ruby
-    volumes:
-      - ../problems:/home/vscode/problems
-    environment:
-      - PROBLEM_ROOT=/home/vscode/problems
-    cap_add:
-      - SYS_PTRACE
-    depends_on:
-      - app
-    working_dir: /home/vscode
     command: /home/vscode/.local/bin/dmoj -c /home/vscode/problems/judge-ruby.yml app
 
 volumes:
-  static:
+  static-asset:
